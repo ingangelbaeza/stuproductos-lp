@@ -1,0 +1,66 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+        <title>{title}</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/public/images/logo-stu-productos.png"
+        />
+
+        <!-- Fonts -->
+        <link
+            href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Anton"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body
+        class="antialiased bg-white"
+        x-data="{ openMenu : false }"
+        :class="openMenu ? 'overflow-hidden' : 'overflow-visible'"
+    >
+        <slot />
+        <button
+            x-cloak
+            x-data="{scroll : false}"
+            @scroll.window="document.documentElement.scrollTop > 20 ? scroll = true : scroll = false"
+            x-show="scroll"
+            @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            type="button"
+            data-mdb-ripple="true"
+            data-mdb-ripple-color="light"
+            class="fixed inline-block p-3 text-xs font-medium leading-tight text-white uppercase transition duration-150 ease-in-out bg-red-600 rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg bottom-5 right-5"
+            id="btn-back-to-top"
+            x-transition.opacity
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </body>
+</html>
